@@ -2,7 +2,7 @@
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+<link rel="stylesheet" type="text/css" href="../static\index.css">
 {% endblock %}
 
 {% block scripts %}
@@ -16,11 +16,11 @@
       data: 'Connected'
     });
   });
-  socket.on('my response', function( msg ) {
+  socket.on('my data', function( msg ) {
     console.log( msg );
     if( typeof msg !== 'undefined' && msg.length > 0 ) {
       $( 'h3' ).remove()
-      $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'</div>' )
+      $( 'div.message_holder' ).append( '<div><b style="color: #000">' + msg + '</div>' )
     }
   });
 </script>

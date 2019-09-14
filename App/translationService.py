@@ -4,8 +4,9 @@ from rev_ai.models import MediaConfig
 from rev_ai.streamingclient import RevAiStreamingClient
 
 import flask
+import json
 
-def executeStreaming():
+def executeStreaming(socketio):
     # Sampling rate of your microphone and desired chunk size
     rate = 44100
     chunk = int(rate/10)
@@ -26,8 +27,23 @@ def executeStreaming():
             response_gen = streamclient.start(stream.generator())
 
             # Iterates through responses and prints them
+            elements=""
+            resp=""
             for response in response_gen:
-                print(response)
+                #print(response+"/n")
+                resp=json.loads(response)
+
+                if (resp["type"]=="final"):
+                    elements=resp["elements"]
+
+                txt=""
+                for val in elements:
+                    #print(val["value"])
+                    txt=txt+val["value"]
+                    print(txt)
+                    socketio.emit('my data', txt)
+
+                #print(txt);
 
         except KeyboardInterrupt:
             # Ends the websocket connection.

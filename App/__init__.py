@@ -18,10 +18,15 @@ def index():
     print('34556')
     return render_template('index.html')
 
+@socketio.on('my event')
+def handle_my_custom_event(json):
+    print('received my event: ' + str(json))
+
 @app.route('/', methods=['POST'])
 def startStreaming():
-    executeStreaming()
-    return redirect(url_for('/'))
+    # executeStreaming(socketio)
+    socketio.emit('my data', 'some data')
+    return redirect(url_for('index'))
 
 Bootstrap(app)
 
