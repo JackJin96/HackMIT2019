@@ -1,3 +1,3 @@
 # Project
 
-Audio input -> Laptop -> Webapp -> Rev.ai API -> texts -> Web
+Audio input -> Laptop -> Webapp -> Rev.ai API -> texts -> Webapp
