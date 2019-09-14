@@ -1,1 +1,3 @@
-# HackMIT2019
+# Project
+
+Audio input -> Laptop -> Webapp -> Rev.ai API -> texts -> Web
