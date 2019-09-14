@@ -26,8 +26,22 @@ def executeStreaming():
             response_gen = streamclient.start(stream.generator())
 
             # Iterates through responses and prints them
+            elements=""
+            resp=""
             for response in response_gen:
-                print(response)
+                #print(response+"/n")
+                resp=json.loads(response)
+            
+                if (resp["type"]=="final"):
+                    elements=resp["elements"]
+
+                txt="";
+                for val in elements:
+                    #print(val["value"])
+                    txt=txt+val["value"]
+                    print(txt)
+                
+                #print(txt);
 
         except KeyboardInterrupt:
             # Ends the websocket connection.
