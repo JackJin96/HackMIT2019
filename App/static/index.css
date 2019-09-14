@@ -1,16 +1,15 @@
 *{
-    background-color: 200,247,233;
+    background-color: rgb(200,247,233);
 }
 
 
 .jumbotron {
     text-align: center !important;
     margin-top: -3%;
-}
-
-.jumbotron h1{
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.jumbotron h1{}
 
 .content {
     text-align: center !important;
