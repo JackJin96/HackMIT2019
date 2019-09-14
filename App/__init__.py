@@ -5,11 +5,13 @@ import json
 
 from flask import render_template
 from flask_bootstrap import Bootstrap
+from App.translationService import executeStreaming
 
 app = flask.Flask(__name__)
 
-Bootstrap(app)
-
 @app.route('/')
 def index():
-  return render_template('index.html')
+    # executeStreaming()
+    return render_template('index.html')
+
+Bootstrap(app)

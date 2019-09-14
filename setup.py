@@ -7,6 +7,9 @@ setup(
     install_requires=[
         'flask',
         'requests',
+        'pyaudio',
+        'rev-ai',
+        'six',
         'flask-bootstrap'
     ],
 )
