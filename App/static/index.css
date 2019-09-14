@@ -1,3 +1,8 @@
+*{
+    background-color: aquamarine;
+}
+
+
 .jumbotron {
     text-align: center !important;
     margin-top: -3%;
