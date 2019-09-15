@@ -36,15 +36,19 @@ def executeStreaming(socketio):
                 # if (resp["type"]=="final"):
                 #     elements=resp["elements"]
                 elements=resp["elements"]
+                sentense_type = resp["type"]
                 txt=""
-                for val in elements:
-                    #print(val["value"])
-                    if(val["type"]=="punct"):
+                if sentense_type == "partial":
+                    for val in elements:
+                        #print(val["value"])
+                        if(val["type"]=="punct"):
+                            txt=txt+val["value"]
+                        else:
+                            txt=txt+val["value"]+" "
+                        #print(txt)
+                else:
+                    for val in elements:
                         txt=txt+val["value"]
-                    else:
-                        txt=txt+" "+val["value"]
-                    #print(txt)
-
                 socketio.emit('my data', {
                     'content': txt,
                     'type': resp["type"],
