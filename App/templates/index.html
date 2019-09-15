@@ -55,44 +55,31 @@
     socket.on('my data', function( msg ) {
       console.log( msg );
       if( typeof msg.content !== 'undefined' && msg.content.length > 0 ) {
-        // let [line, offset] = quill.getLine(10);
-        // let index = quill.getIndex(line);
         $( 'h3' ).remove();
         $( 'div.message_holder' ).empty();
-        $( 'div.message_holder' ).append( '<div><b style="color: #000">' + msg.content + '</div>' );
+        $( 'div.message_holder' ).append( '<div><b style="color: #ccc;font-size: 20px;">' + msg.content + '</div>' );
         if (msg.type === "final") {
           quill.insertText(quill.getLength(), msg.content);
         }
       }
     });
   }
+  function say() {
+    var msg = new SpeechSynthesisUtterance();
+    var voices = window.speechSynthesis.getVoices();
+    msg.voice = voices[10];
+    msg.voiceURI = "native";
+    msg.volume = 1;
+    msg.rate = 1;
+    msg.pitch = 0.8;
+    msg.text = quill.getText(0, quill.getLength());
+    msg.lang = 'en-US';
+    speechSynthesis.speak(msg);
+  }
 </script>
 {% endblock %}
 
 {% block content %}
-<!-- <div class="container">
-<div class="buttons">
-  <div class="row">
-    <button type="button" class="btn btn-default btn-lg" onclick="openSocket()">
-      <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Record
-    </button>
-    <button type="button" class="btn btn-default btn-lg" onclick="closeSocket()">
-      <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop
-    </button>
-  </div>
-</div>
-<div class="row">
-    <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
-    <div class="final_message"></div>
-    <div class="message_holder"></div>
-</div>
-<div class="row">
-  <div id="editor">
-    <p>Here are your transcriptions:</p>
-    <p><br></p>
-  </div>
-</div>
-</div> -->
 
 <div class="site-wrapper">
 
@@ -100,28 +87,22 @@
 
       <div class="cover-container">
 
-        <div class="masthead clearfix">
-          <div class="inner">
-            <h3 class="masthead-brand">Cover</h3>
-            <nav>
-              <ul class="nav masthead-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">Contact</a></li>
-              </ul>
-            </nav>
-          </div>
+        <div class="inner">
+          <h3 class="masthead-brand">AFAR</h3>
+          <!-- <img src="logo.png"><img> -->
+          <br>
+          <br>
         </div>
 
         <div class="inner cover">
-          <h1 class="cover-heading">Cover your page.</h1>
-          <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-          <p class="lead">
-            <a href="#" class="btn btn-lg btn-default">Learn more</a>
-          </p>
+          <h1 class="cover-heading">Assited Focus Audio Review.</h1>
+          <br>
+          <p class="lead">AFAR is built to help individuals with learning difficulties. We aims to create a seemless learning environment for everyone.</p>
         </div>
 
         <div class="buttons">
+          <br>
+          <br>
           <div class="row">
             <button type="button" class="btn btn-default btn-lg" onclick="openSocket()">
               <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Record
@@ -129,13 +110,16 @@
             <button type="button" class="btn btn-default btn-lg" onclick="closeSocket()">
               <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop
             </button>
+            <button type="button" class="btn btn-default btn-lg" onclick="say()">
+                <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Speak
+              </button>
           </div>
         </div>
-        <div class="row">
-            <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+        <div class="row editorRow">
+            <h3 style='color: #ccc;font-size: 20px;'>No message yet..</h3>
             <div class="final_message"></div>
             <div class="message_holder"></div>
-        </div>
+            <br>
           <div id="editor">
             <p>Here are your transcriptions:</p>
             <p><br></p>
@@ -144,7 +128,7 @@
 
         <div class="mastfoot">
           <div class="inner">
-            <p>Created at HackMIT2019.</p>
+            <p>Created @ HackMIT2019</p>
           </div>
         </div>
 

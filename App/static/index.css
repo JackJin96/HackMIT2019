@@ -19,6 +19,14 @@
     fill: white !important;
 }
 
+.editorRow {
+    margin-top: 10%;
+}
+
+#editor {
+    margin-bottom: 10%;
+}
+
 /*
  * Globals
  */
@@ -48,8 +56,8 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #333;
-  /* background-image: url("background.png"); */
+  /* background-color: #333; */
+  background-image: url("background.png");
 }
 body {
   color: #fff;
