@@ -5,8 +5,10 @@ from rev_ai.streamingclient import RevAiStreamingClient
 
 import flask
 import json
+import time
+import datetime
 
-def executeStreaming(socketio):
+def executeStreaming(socketio, status):
     # Sampling rate of your microphone and desired chunk size
     rate = 44100
     chunk = int(rate/10)
@@ -18,39 +20,55 @@ def executeStreaming(socketio):
     example_mc = MediaConfig('audio/x-raw', 'interleaved', 44100, 'S16LE', 1)
 
     streamclient = RevAiStreamingClient(access_token, example_mc)
+    start_time = time.time()
 
     # Opens microphone input. The input will stop after a keyboard interrupt.
     with MicrophoneStream(rate, chunk) as stream:
         # Uses try method to allow users to manually close the stream
         try:
             # Starts the server connection and thread sending microphone audio
-            response_gen = streamclient.start(stream.generator())
+            if status == "open":
+                response_gen = streamclient.start(stream.generator())
+                # Iterates through responses and prints them
+                elements=""
+                resp=""
+                ct = 0
+                for response in response_gen:
+                    # print(response)
+                    resp=json.loads(response)
 
-            # Iterates through responses and prints them
-            elements=""
-            resp=""
-            for response in response_gen:
-                # print(response)
-                resp=json.loads(response)
-
-                # if (resp["type"]=="final"):
-                #     elements=resp["elements"]
-                elements=resp["elements"]
-                txt=""
-                for val in elements:
-                    #print(val["value"])
-                    if(val["type"]=="punct"):
-                        txt=txt+val["value"]
+                    # if (resp["type"]=="final"):
+                    #     elements=resp["elements"]
+                    elements=resp["elements"]
+                    sentense_type = resp["type"]
+                    txt=""
+                    if sentense_type == "partial":
+                        for val in elements:
+                            #print(val["value"])
+                            if(val["type"]=="punct"):
+                                txt=txt+val["value"]
+                            else:
+                                txt=txt+val["value"]+" "
+                            #print(txt)
                     else:
-                        txt=txt+" "+val["value"]
-                    #print(txt)
+                        for val in elements:
+                            txt=txt+val["value"]
+                        ct += 1
 
-                socketio.emit('my data', {
-                    'content': txt,
-                    'type': resp["type"],
-                })
+                    if(ct==5):
+                        ct=0
+                        sec = datetime.timedelta(seconds=int(time.time()-start_time))
+                        tstamp=datetime.datetime(1,1,1)+sec
+                        timestamp="["+str(tstamp.hour)+":"+str(tstamp.minute)+":"+str(tstamp.second)+"]"
+                        txt=txt+" "+ str(timestamp)
 
-                #print(txt);
+                    socketio.emit('my data', {
+                        'content': txt,
+                        'type': resp["type"],
+                    })
+            else:
+                # streamclient.end()
+                stream._clear_buffer()
 
         except KeyboardInterrupt:
             # Ends the websocket connection.
