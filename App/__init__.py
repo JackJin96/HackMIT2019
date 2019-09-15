@@ -10,7 +10,7 @@ from App.translationService import executeStreaming
 
 app = flask.Flask(__name__)
 app.config['SECRET_KEY'] = 'hackmit2019'
-socketio = SocketIO(app)
+# socketio = SocketIO(app)
 
 @app.route('/')
 def index():
@@ -18,11 +18,11 @@ def index():
     print('34556')
     return render_template('index.html')
 
-@socketio.on('my event')
-def handle_my_custom_event(json):
-    print('received my event: ' + str(json))
-    # socketio.emit('my data', 'connection succeeded')
-    executeStreaming(socketio)
+# @socketio.on('my event')
+# def handle_my_custom_event(json):
+#     print('received my event: ' + str(json))
+#     # socketio.emit('my data', 'connection succeeded')
+#     executeStreaming(socketio)
 
 # @app.route('/', methods=['POST'])
 # def startStreaming():
@@ -34,4 +34,8 @@ def handle_my_custom_event(json):
 Bootstrap(app)
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     socketio.run(app, host='0.0.0.0', port=80)
+=======
+    app.run(app)
+>>>>>>> aae516a2eeac0de2edfb06e8ed94f674dddf5250
