@@ -30,7 +30,7 @@ def executeStreaming(socketio):
             elements=""
             resp=""
             for response in response_gen:
-                print(response)
+                # print(response)
                 resp=json.loads(response)
 
                 # if (resp["type"]=="final"):
