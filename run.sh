@@ -11,5 +11,6 @@ echo $FLASK_ENV
 pip3 install -e .
 
 # flask run --host=localhost --port=8080
-# flask run --no-reload
-python3 ./App/__init__.py
+#flask run --no-reload --port=80
+#python3 ./App/__init__.py
+flask run --no-reload
