@@ -1,3 +1,3 @@
-# Project
+# AFAR: Assisted Focus Audio Reviewer
 
-Audio input -> Laptop -> Webapp -> Rev.ai API -> texts -> Webapp
+
