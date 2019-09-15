@@ -30,18 +30,25 @@ def executeStreaming(socketio):
             elements=""
             resp=""
             for response in response_gen:
-                #print(response+"/n")
+                print(response)
                 resp=json.loads(response)
 
-                if (resp["type"]=="final"):
-                    elements=resp["elements"]
-
+                # if (resp["type"]=="final"):
+                #     elements=resp["elements"]
+                elements=resp["elements"]
                 txt=""
                 for val in elements:
                     #print(val["value"])
-                    txt=txt+val["value"]
-                    print(txt)
-                    socketio.emit('my data', txt)
+                    if(val["type"]=="punct"):
+                        txt=txt+val["value"]
+                    else:
+                        txt=txt+" "+val["value"]
+                    #print(txt)
+
+                socketio.emit('my data', {
+                    'content': txt,
+                    'type': resp["type"],
+                })
 
                 #print(txt);
 

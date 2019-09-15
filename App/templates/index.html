@@ -12,15 +12,21 @@
 <script type="text/javascript">
   var socket = io.connect('http://' + document.domain + ':' + location.port);
   socket.on('connect', function() {
+    console.log("connected");
     socket.emit('my event', {
       data: 'Connected'
     });
   });
   socket.on('my data', function( msg ) {
     console.log( msg );
-    if( typeof msg !== 'undefined' && msg.length > 0 ) {
-      $( 'h3' ).remove()
-      $( 'div.message_holder' ).append( '<div><b style="color: #000">' + msg + '</div>' )
+    if( typeof msg.content !== 'undefined' && msg.content.length > 0 ) {
+      $( 'h3' ).remove();
+      $( 'div.message_holder' ).empty();
+      $( 'div.message_holder' ).append( '<div><b style="color: #000">' + msg.content + '</div>' );
+      if (msg.type === "final") {
+        $( 'div.message_holder' ).empty();
+        $( 'div.final_message' ).append( '<div><b style="color: #000">' + msg.content + '</div>' );
+      }
     }
   });
 </script>
@@ -66,6 +72,7 @@
 </div>
 <div class="content">
     <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+    <div class="final_message"></div>
     <div class="message_holder"></div>
 </div>
 {% endblock %}
