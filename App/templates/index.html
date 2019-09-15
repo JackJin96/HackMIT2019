@@ -19,7 +19,29 @@
     });
     socket.close();
   }
+  var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': ['white'] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+];
   var quill = new Quill('#editor', {
+    modules: {
+    toolbar: toolbarOptions
+  },
     theme: 'snow'
   });
   function openSocket() {
@@ -47,59 +69,89 @@
 </script>
 {% endblock %}
 
-{% block navbar %}
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">HomePage</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <!-- <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Link</a></li>
-        </ul> -->
-        <ul class="nav navbar-nav navbar-right">
-          <li><a>Hi</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-{% endblock %}
-
 {% block content %}
-<div class="jumbotron">
-    <h1>Welcome to Assistive Audio</h1>
-    <p>Some texts.</p>
-    <form action = "http://localhost:5000/" method = "post">
-      <p>Enter Name:</p>
-      <p><input type = "text" name = "nm" placeholder = "Full Name"/></p>
-      <p><input type = "submit" value = "submit" /></p>
-   </form>
+<!-- <div class="container">
+<div class="buttons">
+  <div class="row">
+    <button type="button" class="btn btn-default btn-lg" onclick="openSocket()">
+      <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Record
+    </button>
+    <button type="button" class="btn btn-default btn-lg" onclick="closeSocket()">
+      <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop
+    </button>
+  </div>
 </div>
-<div>
-  <button onclick="openSocket()">Record</button>
-</div>
-<div>
-  <button onclick="closeSocket()">Stop</button>
-</div>
-<div class="content">
+<div class="row">
     <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
     <div class="final_message"></div>
     <div class="message_holder"></div>
 </div>
-<div id="editor">
-  <p>Here are your transcriptions:</p>
-  <p><br></p>
+<div class="row">
+  <div id="editor">
+    <p>Here are your transcriptions:</p>
+    <p><br></p>
+  </div>
 </div>
+</div> -->
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+      <div class="cover-container">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <h3 class="masthead-brand">Cover</h3>
+            <nav>
+              <ul class="nav masthead-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="inner cover">
+          <h1 class="cover-heading">Cover your page.</h1>
+          <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+          <p class="lead">
+            <a href="#" class="btn btn-lg btn-default">Learn more</a>
+          </p>
+        </div>
+
+        <div class="buttons">
+          <div class="row">
+            <button type="button" class="btn btn-default btn-lg" onclick="openSocket()">
+              <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Record
+            </button>
+            <button type="button" class="btn btn-default btn-lg" onclick="closeSocket()">
+              <span class="glyphicon glyphicon-stop" aria-hidden="true"></span> Stop
+            </button>
+          </div>
+        </div>
+        <div class="row">
+            <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+            <div class="final_message"></div>
+            <div class="message_holder"></div>
+        </div>
+          <div id="editor">
+            <p>Here are your transcriptions:</p>
+            <p><br></p>
+          </div>
+        </div>
+
+        <div class="mastfoot">
+          <div class="inner">
+            <p>Created at HackMIT2019.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
 {% endblock %}
 
 
