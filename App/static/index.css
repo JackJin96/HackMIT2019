@@ -7,6 +7,18 @@
     text-align: center;
 }
 
+.ql-snow .ql-picker-label {
+    color: white;
+}
+
+.ql-snow .ql-stroke {
+    stroke: white !important;
+}
+
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+    fill: white !important;
+}
+
 /*
  * Globals
  */
