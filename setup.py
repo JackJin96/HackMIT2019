@@ -10,6 +10,7 @@ setup(
         'pyaudio',
         'rev-ai',
         'six',
-        'flask-bootstrap'
+        'flask-bootstrap',
+        'flask-socketio'
     ],
 )
