@@ -34,8 +34,4 @@ def index():
 Bootstrap(app)
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     socketio.run(app, host='0.0.0.0', port=80)
-=======
-    app.run(app)
->>>>>>> aae516a2eeac0de2edfb06e8ed94f674dddf5250
